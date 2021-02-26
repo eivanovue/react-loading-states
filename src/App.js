@@ -1,22 +1,19 @@
-import logo from './logo.svg';
 import './App.css';
+import useRequest from './LoadingState.js';
+import ShowData from './ShowData.js';
+import ClipLoader from "react-spinners/ClipLoader";
 
 function App() {
+
+  // error not used
+  const { data, loading, error } = useRequest(`https://lookers-api.herokuapp.com/cars`);
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {
+          loading ? <ClipLoader color={'white'} loading={loading} size={150}/> : <ShowData data={data}/>
+        }     
       </header>
     </div>
   );
